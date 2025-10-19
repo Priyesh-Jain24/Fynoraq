@@ -43,7 +43,7 @@ With Fynoraq, you get a smart conversational companion that understands, process
 No installation or login required!  
 
 1. **Access Fynoraq:**  
-   - Visit: [YourWebsiteURL.com](#) *(replace with actual link)*  
+   - Visit: [**Fynoraq**](https://fynoraq-ai.onrender.com) 
     
 
 2. **Interact Instantly:**  
