@@ -1,0 +1,43 @@
+import express from "express";
+import fetch from "node-fetch";
+import dotenv from "dotenv";
+import cors from "cors";
+
+dotenv.config();
+const app = express();
+
+app.use(cors({ origin: "http://localhost:3000" })); // frontend origin
+app.use(express.json());
+
+const API_KEY = process.env.GEMINI_API_KEY;
+
+app.post("/api/chat", async (req, res) => {
+  const { message } = req.body;
+
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [
+            { parts: [{ text: message }] }
+          ]
+        })
+      }
+    );
+
+    const data = await response.json();
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Some Error occurred.";
+    console.log(reply)
+    console.log("Ai response:", reply);
+    res.json({ reply });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch from Gemini" });
+  }
+});
+
+app.listen(5000, () => console.log("✅ Backend running on http://localhost:5000"));
