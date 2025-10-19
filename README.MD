@@ -8,6 +8,8 @@ With Fynoraq, you get a smart conversational companion that understands, process
 
 [**Check out the live demo!**](https://fynoraq-ai.onrender.com)
 
+---
+
 ## ✨ Features  
 
 - **🗣️ Conversational Intelligence:**  
