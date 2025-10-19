@@ -5,8 +5,9 @@ import cors from "cors";
 
 dotenv.config();
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-app.use(cors({ origin: "http://localhost:3000" })); // frontend origin
+app.use(cors({ origin: "https://fynoraq-ai.onrender.com" })); // frontend origin
 app.use(express.json());
 
 const API_KEY = process.env.GEMINI_API_KEY;
@@ -40,4 +41,4 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-app.listen(5000, () => console.log("✅ Backend running on http://localhost:5000"));
+app.listen(PORT, () => console.log("✅ Backend running on http://localhost:5000"));
