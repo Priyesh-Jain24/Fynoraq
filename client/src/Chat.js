@@ -32,7 +32,8 @@ function Chat() {
     setIsLoading(true);
 
     try {
-      const res = await axios.post("https://fynoraq-server.onrender.com", { message: userMessage });
+      // AFTER
+      const res = await axios.post("https://fynoraq-server.onrender.com/api/chat", { message: userMessage });
       const reply = res.data.reply;
       setMessages(prev => [...prev, { sender: "Fynoraq", text: reply, timestamp: new Date() }]);
     } catch (err) {
