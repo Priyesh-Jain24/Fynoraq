@@ -7,7 +7,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({ origin: "http://localhost:3000" })); // frontend origin
+app.use(cors({ origin: "https://fynoraq-ai.onrender.com" })); // frontend origin
 app.use(express.json());
 
 const API_KEY = process.env.GEMINI_API_KEY;
