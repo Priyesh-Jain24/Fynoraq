@@ -24,22 +24,13 @@ app.post("/api/chat", async (req, res) => {
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contents: history })
+        body: JSON.stringify({
+          contents: [
+            { parts: [{ text: message }] }
+          ]
+        })
       }
     );
-
-    const data = await response.json();
-    const reply =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "Some Error occurred.";
-
-    console.log("AI response:", reply);
-    res.json({ reply });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to fetch from Gemini" });
-  }
-});
 
 
     const data = await response.json();
