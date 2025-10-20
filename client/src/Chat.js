@@ -31,18 +31,42 @@ function Chat() {
     setInput("");
     setIsLoading(true);
 
-    try {
-      // AFTER
-      const res = await axios.post("https://fynoraq-server.onrender.com/api/chat", { message: userMessage });
-      const reply = res.data.reply;
-      setMessages(prev => [...prev, { sender: "Fynoraq", text: reply, timestamp: new Date() }]);
-    } catch (err) {
-      console.error(err);
-      setMessages(prev => [...prev, { sender: "Fynoraq", text: "Error: Could not get response. Please try again.", timestamp: new Date() }]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+
+
+  const sendMessage = async () => {
+  if (!input.trim()) return;
+
+  const userMessage = input;
+  const newMessages = [...messages, { sender: "You", text: userMessage, timestamp: new Date() }];
+  setMessages(newMessages);
+  setInput("");
+  setIsLoading(true);
+
+  try {
+    // Convert your `messages` to Gemini format
+    const history = newMessages.map(msg => ({
+      role: msg.sender === "You" ? "user" : "model",
+      parts: [{ text: msg.text }]
+    }));
+
+    const res = await axios.post("https://fynoraq-server.onrender.com/api/chat", { history });
+    const reply = res.data.reply;
+
+    setMessages(prev => [
+      ...prev,
+      { sender: "KHYATI", text: reply, timestamp: new Date() }
+    ]);
+  } catch (err) {
+    console.error(err);
+    setMessages(prev => [
+      ...prev,
+      { sender: "KHYATI", text: "Error: Could not get response. Please try again.", timestamp: new Date() }
+    ]);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && !isLoading) {
